@@ -197,6 +197,28 @@ window.onload = function () {
 		img.crossOrigin = 'anonymous';
 		img.src = URL.createObjectURL(file);
 	})
+
+	// 加载法线贴图
+	var normalTexture;
+	const normalTexInput = this.document.getElementById('normalTexInput');
+	if (normalTexInput) {
+		normalTexInput.addEventListener('change', (e) => {
+			const file = e.target.files[0];
+			if (!file) return;
+			const img = new Image();
+			img.onload = function () {
+				normalTexture = configureTexture(img);
+				gl.useProgram(program);
+				gl.activeTexture(gl.TEXTURE1);
+				gl.bindTexture(gl.TEXTURE_2D, normalTexture);
+				gl.uniform1i(gl.getUniformLocation(program, "normalTexture", 1));
+				render();
+			};
+			img.crossOrigin = 'anonymous';
+			img.src = URL.createObjectURL(file);
+		})
+	}
+
 }
 
 
