@@ -87,6 +87,29 @@ window.onload = function () {
 	canvas.height = document.body.clientHeight;
 	gl.viewport((canvas.width - canvas.height) / 2, 0, canvas.height, canvas.height);
 
+	// 选择并载入本地 OBJ 文件
+	var objInput = document.getElementById('objFile');
+	if (objInput) {
+		objInput.addEventListener('change', function (e) {
+			var file = e.target.files && e.target.files[0];
+			if (!file) return;
+			var reader = new FileReader();
+			reader.onload = function (ev) {
+				try {
+					points = [];
+					colors = [];
+					vertextsXYZ();
+					parseOBJ(String(ev.target.result));
+					SendData();
+					render();
+				} catch (err) {
+					alert('OBJ 解析失败: ' + err);
+				}
+			};
+			reader.readAsText(file, 'utf-8');
+		});
+	}
+
 	//设置界面控制可调参数初值
 	initParameters();
 
