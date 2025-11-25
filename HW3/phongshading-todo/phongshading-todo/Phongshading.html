@@ -29,12 +29,19 @@
         <text>I/K/J/L/,/.移动摄像机</text>
         <text>M/N-投影角zoomin/zoomout</text>
         <text>空格-重置复位</text>
-        <input id="objFile" type="file" accept=".obj" placeholder="obj" />
     </div>
     <canvas id="canvas">Oops ... your browser doesn't support the HTML5 canvas element</canvas>
     <img id="cubeTexImage" src="container.png" hidden></img>
     <img id="planeTexImage" src="wood.png" hidden></img>
-    <!--input id="fileBtn" type="file" accept="image/*" onchange="useTexture(this)" style="display: none;"/-->
+    <div style="margin-top:10px;">
+        <label>选择纹理类型：</label>
+        <select id="textureType">
+            <option value="cube">立方体纹理</option>
+            <option value="plane">平面纹理</option>
+        </select>
+        <input id="customTexInput" type="file" accept="image/*" style="margin-left:10px;" />
+    </div>
+    <!-- <input id="fileBtn" type="file" accept="image/*" onchange="useTexture(this)" style="display: flex;" /--> -->
 </body>
 
 

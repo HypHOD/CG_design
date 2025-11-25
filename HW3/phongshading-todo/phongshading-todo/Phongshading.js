@@ -170,6 +170,33 @@ window.onload = function () {
 	initArrayBuffer(gl, lampPorgram, flatten(points), 4, gl.FLOAT, "vPosition");
 	//调用绘制函数
 	render();
+
+	//监听自定义上传
+	const customTexInput = this.document.getElementById('customTexInput');
+	const textureTypeSelect = this.document.getElementById('textureType');
+
+	customTexInput.addEventListener('change', (e) => {
+		const file = e.target.files[0];
+		if (!file) return;
+
+		const img = new Image();
+		img.onload = function () {
+			const targetType = textureTypeSelect.value;
+			if (targetType === 'cube') {
+				cubeTexture = configureTexture(img);
+				console.log('reload [cube] texture!!!');
+			} else if (targetType === 'plane') {
+				planeTexture = configureTexture(img);
+				console.log('reload [plane] texture!!!');
+			}
+			render();
+		};
+		img.onerror = function () {
+			alert('load texture error!');
+		}
+		img.crossOrigin = 'anonymous';
+		img.src = URL.createObjectURL(file);
+	})
 }
 
 
